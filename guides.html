@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guides - Fils de Plante</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/guides.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+    <!-- En-tête -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Fils de Plante</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="vegetaux.html">Végétaux</a></li>
+                    <li><a href="potager.html">Potager</a></li>
+                    <li><a href="guides.html" class="active">Guides</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Bannière principale -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Guides Pratiques</h2>
+            <p>Apprenez les techniques de jardinage avec nos guides détaillés et conseils d'experts.</p>
+        </div>
+    </section>
+
+    <!-- Contenu principal -->
+    <main class="container">
+        <h2 class="section-title">Nos Guides de Jardinage</h2>
+        
+        <!-- Filtres par thème -->
+        <div class="theme-filters">
+            <button class="theme-btn active" data-theme="all">Tous les guides</button>
+            <button class="theme-btn" data-theme="debutant">Débutants</button>
+            <button class="theme-btn" data-theme="technique">Techniques</button>
+            <button class="theme-btn" data-theme="saison">Par saison</button>
+            <button class="theme-btn" data-theme="bio">Jardinage bio</button>
+        </div>
+        
+        <!-- Grille des guides -->
+        <div class="guides-grid" id="guidesContainer">
+            <!-- Les guides seront chargés dynamiquement par JavaScript -->
+        </div>
+
+        <!-- Modal pour afficher le guide complet -->
+            <div id="guideModal" class="guide-modal hidden">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <div id="guideContent"></div>
+                </div>
+            </div>
+        
+        <!-- Section newsletter -->
+        <section class="newsletter-section">
+            <div class="newsletter-content">
+                <h2>Restez informé</h2>
+                <p>Inscrivez-vous à notre newsletter pour recevoir nos nouveaux guides et conseils de jardinage.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Votre adresse email" required>
+                    <button type="submit">S'inscrire</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pied de page -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Fils de Plante</h3>
+                <p>Votre guide complet pour explorer et cultiver le monde végétal.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Liens Rapides</h3>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="vegetaux.html">Catalogue des végétaux</a></li>
+                    <li><a href="guides.html">Guides de jardinage</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> contact@filsdeplante.fr</p>
+                <p><i class="fas fa-phone"></i> +33 1 23 45 67 89</p>
+                <p><i class="fas fa-map-marker-alt"></i> Lyon, France</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Fils de Plante - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-button" id="chatbotButton">
+            <i class="fas fa-comments"></i>
+        </div>
+        
+        <div class="chatbot-window hidden" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>Assistant Jardinage</h3>
+                <button class="chatbot-close">&times;</button>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    <p>Bonjour ! Je suis votre assistant jardinage. Comment puis-je vous aider aujourd'hui ?</p>
+                </div>
+            </div>
+            
+            <div class="chatbot-options" id="chatbotOptions">
+                <div class="option-category">
+                    <h4>Choisissez une plante :</h4>
+                    <div class="options-grid" id="plantOptions">
+                        <!-- Les options de plantes seront générées par JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="option-category hidden" id="topicCategory">
+                    <h4>Choisissez un sujet :</h4>
+                    <div class="options-grid" id="topicOptions">
+                        <!-- Les options de sujets seront générées par JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/guides.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+</html>

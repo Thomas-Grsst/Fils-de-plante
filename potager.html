@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potager - Fils de Plante</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/potager.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+    <!-- En-tête -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Fils de Plante</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="vegetaux.html">Végétaux</a></li>
+                    <li><a href="potager.html" class="active">Potager</a></li>
+                    <li><a href="guides.html">Guides</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Bannière principale -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Mon Potager</h2>
+            <p>Apprenez à cultiver vos propres fruits et légumes avec nos guides détaillés et conseils pratiques.</p>
+        </div>
+    </section>
+
+    <!-- Contenu principal -->
+    <main class="container">
+        <h2 class="section-title">Cultiver son Potager</h2>
+        
+        <!-- Section recherche -->
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" id="searchPotager" placeholder="Rechercher un légume ou fruit (ex: Tomate, Carotte, Fraise...)">
+                <button id="searchButton"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="popular-plants">
+                <h3>Aliments populaires:</h3>
+                <div class="popular-tags">
+                    <span class="plant-tag" data-plant="Tomate">Tomate</span>
+                    <span class="plant-tag" data-plant="Carotte">Carotte</span>
+                    <span class="plant-tag" data-plant="Fraise">Fraise</span>
+                    <span class="plant-tag" data-plant="Courgette">Courgette</span>
+                    <span class="plant-tag" data-plant="Salade">Salade</span>
+                    <span class="plant-tag" data-plant="Basilic">Basilic</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Filtres -->
+        <div class="potager-filters">
+            <select id="seasonFilter">
+                <option value="all">Toutes saisons</option>
+                <option value="printemps">Printemps</option>
+                <option value="ete">Été</option>
+                <option value="automne">Automne</option>
+                <option value="hiver">Hiver</option>
+            </select>
+            <select id="typeFilter">
+                <option value="all">Tous types</option>
+                <option value="legume-feuille">Légumes Feuilles</option>
+                <option value="legume-racine">Légumes Racines</option>
+                <option value="tubercule">Tubercules</option>
+                <option value="legumineuse">Légumineuse</option>
+                <option value="legume-fruit">Légumes Fruits</option>
+                <option value="bulbe">Bulbe</option>
+                <option value="aromatique">Aromatiques</option>
+                <option value="petit-fruit">Petits Fruits</option>
+                <option value="arbre-fruitier">Arbre Fruitier</option>
+                
+            </select>
+        </div>
+        
+        <!-- Grille des légumes et fruits -->
+        <div class="plants-grid" id="potagerContainer">
+            <div class="welcome-message">
+                <i class="fas fa-seedling"></i>
+                <h3>Recherchez un aliment pour commencer</h3>
+                <p>Utilisez la barre de recherche ci-dessus ou cliquez sur un des aliments populaires</p>
+            </div>
+        </div>
+        
+        <!-- Modal de détails -->
+        <div id="plantDetails" class="plant-details-modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div id="plantDetailsContent"></div>
+            </div>
+        </div>
+        
+        <!-- Section conseils -->
+        <section class="tips-section">
+            <h2 class="section-title">Conseils de Jardinage</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Préparation du sol</h3>
+                    <p>Apprenez à préparer votre sol pour optimiser la croissance de vos plantes.</p>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-tint"></i>
+                    <h3>Arrosage optimal</h3>
+                    <p>Découvrez les meilleures techniques d'arrosage pour chaque type de plante.</p>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-bug"></i>
+                    <h3>Protection naturelle</h3>
+                    <p>Des méthodes écologiques pour protéger vos cultures des parasites.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pied de page -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Fils de Plante</h3>
+                <p>Votre guide complet pour explorer et cultiver le monde végétal.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Liens Rapides</h3>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="vegetaux.html">Catalogue des végétaux</a></li>
+                    <li><a href="potager.html">Mon potager</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> contact@filsdeplante.fr</p>
+                <p><i class="fas fa-phone"></i> +33 1 23 45 67 89</p>
+                <p><i class="fas fa-map-marker-alt"></i> Paris, France</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Fils de Plante - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-button" id="chatbotButton">
+            <i class="fas fa-comments"></i>
+        </div>
+        
+        <div class="chatbot-window hidden" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>Assistant Jardinage</h3>
+                <button class="chatbot-close">&times;</button>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    <p>Bonjour ! Je suis votre assistant jardinage. Comment puis-je vous aider aujourd'hui ?</p>
+                </div>
+            </div>
+            
+            <div class="chatbot-options" id="chatbotOptions">
+                <div class="option-category">
+                    <h4>Choisissez une plante :</h4>
+                    <div class="options-grid" id="plantOptions">
+                        <!-- Les options de plantes seront générées par JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="option-category hidden" id="topicCategory">
+                    <h4>Choisissez un sujet :</h4>
+                    <div class="options-grid" id="topicOptions">
+                        <!-- Les options de sujets seront générées par JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/potager.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+</html>

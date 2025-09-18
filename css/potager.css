@@ -1,0 +1,671 @@
+/* Styles spécifiques à la page Potager */
+
+/* ===== SECTION RECHERCHE ===== */
+.search-section {
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.search-container {
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+#searchPotager {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: none;
+    font-size: 1.1rem;
+    outline: none;
+    background: white;
+}
+
+#searchButton {
+    padding: 1rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1.1rem;
+}
+
+#searchButton:hover {
+    background-color: var(--dark-color);
+}
+
+.popular-plants {
+    margin-bottom: 2rem;
+}
+
+.popular-plants h3 {
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.popular-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+.plant-tag {
+    display: inline-block;
+    background-color: var(--light-color);
+    color: var(--primary-color);
+    padding: 0.7rem 1.3rem;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid var(--primary-color);
+    font-weight: 500;
+}
+
+.plant-tag:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== FILTRES ===== */
+.potager-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#seasonFilter, #typeFilter {
+    padding: 0.8rem 1.2rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 30px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s;
+    min-width: 160px;
+}
+
+#seasonFilter:hover, #typeFilter:hover {
+    border-color: var(--dark-color);
+}
+
+/* ===== GRILLE DES PLANTES ===== */
+.plants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+
+.welcome-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    margin: 2rem 0;
+}
+
+.welcome-message i {
+    font-size: 4.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.welcome-message h3 {
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.welcome-message p {
+    color: #666;
+    font-size: 1.2rem;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.vegetable-item {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid #eaeaea;
+    cursor: pointer;
+}
+
+.vegetable-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.vegetable-header {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.vegetable-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.vegetable-item:hover .vegetable-header img {
+    transform: scale(1.05);
+}
+
+.plant-placeholder {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
+    color: var(--primary-color);
+}
+
+.plant-placeholder i {
+    font-size: 3.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.plant-placeholder p {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+.vegetable-season {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.vegetable-content {
+    padding: 1.8rem;
+}
+
+.vegetable-content h3 {
+    color: var(--dark-color);
+    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.vegetable-type {
+    display: inline-block;
+    background-color: var(--light-color);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}
+
+.vegetable-type i {
+    margin-right: 0.3rem;
+}
+
+.vegetable-description {
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.view-details {
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+    font-size: 1rem;
+}
+
+.view-details:hover {
+    color: var(--accent-color);
+}
+
+.view-details::after {
+    content: "→";
+    margin-left: 0.5rem;
+    transition: transform 0.3s;
+}
+
+.view-details:hover::after {
+    transform: translateX(4px);
+}
+
+/* ===== MODAL DE DÉTAILS ===== */
+.plant-details-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.plant-details-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 18px;
+    padding: 2.5rem;
+    max-width: 850px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(25px);
+    transition: transform 0.4s ease;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.plant-details-modal.active .modal-content {
+    transform: translateY(0);
+}
+
+.close-modal {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    font-size: 2.2rem;
+    cursor: pointer;
+    color: #999;
+    transition: all 0.3s;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-modal:hover {
+    color: var(--text-color);
+    background-color: #f5f5f5;
+    transform: rotate(90deg);
+}
+
+#plantDetailsContent h2 {
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    padding-right: 3rem;
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+
+#plantDetailsContent img {
+    max-width: 100%;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+#plantDetailsContent p {
+    margin-bottom: 1.8rem;
+    line-height: 1.7;
+    color: #444;
+    font-size: 1.1rem;
+}
+
+/* Styles pour les conseils de jardinage dans le modal */
+.gardening-tips {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
+    border-radius: 12px;
+    border-left: 5px solid var(--primary-color);
+}
+
+.gardening-tips h3 {
+    color: var(--dark-color);
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+}
+
+.gardening-tips h3 i {
+    margin-right: 0.8rem;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+}
+
+.care-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 1.5rem;
+}
+
+
+
+
+.care-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.care-item {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s;
+}
+
+.care-tip {
+    grid-column: span 2;
+    background-color: #fff3cd;
+    border-left-color: #ffc107;
+}
+
+
+
+.care-item:hover {
+    transform: translateY(-3px);
+}
+
+.care-item h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.care-item h4 i {
+    margin-right: 0.5rem;
+}
+
+.care-item p {
+    color: #555;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+.care-item.tip {
+    grid-column: 1 / -1;
+    background-color: #fff9e6;
+    border-left: 4px solid var(--accent-color);
+}
+
+.care-item.tip h4 {
+    color: var(--accent-color);
+}
+
+.no-tips {
+    background-color: #f9f9f9;
+    padding: 1.8rem;
+    border-radius: 10px;
+    margin: 2.5rem 0;
+    text-align: center;
+    border: 1px dashed #ddd;
+}
+
+.no-tips p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.no-tips i {
+    margin-right: 0.8rem;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+#plantDetailsContent a {
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    padding: 1rem 2rem;
+    background-color: var(--light-color);
+    border-radius: 30px;
+    transition: all 0.3s;
+    font-size: 1.1rem;
+}
+
+#plantDetailsContent a:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#plantDetailsContent a::before {
+    content: "🌿";
+    margin-right: 0.8rem;
+    font-size: 1.2rem;
+}
+
+/* ===== SECTION CONSEILS ===== */
+.tips-section {
+    margin-top: 5rem;
+    padding-top: 4rem;
+    border-top: 1px solid #eaeaea;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+}
+
+.tip-card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.tip-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.tip-card i {
+    font-size: 3.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.8rem;
+}
+
+.tip-card h3 {
+    margin-bottom: 1.2rem;
+    color: var(--dark-color);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.tip-card p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+/* ===== ÉTATS DE CHARGEMENT ET MESSAGES ===== */
+.loading {
+    text-align: center;
+    padding: 4rem 2rem;
+    grid-column: 1 / -1;
+}
+
+.loading i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1.8rem;
+    animation: spin 1.2s infinite linear;
+}
+
+.loading p {
+    color: #666;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    grid-column: 1 / -1;
+    color: #666;
+}
+
+.no-results i {
+    font-size: 3.5rem;
+    color: #ddd;
+    margin-bottom: 1.8rem;
+}
+
+.no-results p {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.no-results p:last-child {
+    font-size: 1rem;
+    color: #888;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .plants-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+        border-radius: 15px;
+    }
+    
+    #searchPotager {
+        border-radius: 15px 15px 0 0;
+        padding: 1rem;
+    }
+    
+    #searchButton {
+        border-radius: 0 0 15px 15px;
+        padding: 0.8rem;
+    }
+    
+    .potager-filters {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #seasonFilter, #typeFilter {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .popular-tags {
+        justify-content: center;
+    }
+    
+    .plant-tag {
+        padding: 0.6rem 1.1rem;
+        font-size: 0.9rem;
+    }
+    
+    .modal-content {
+        padding: 2rem 1.5rem;
+    }
+    
+    .care-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .tips-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tip-card {
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .popular-tags {
+        gap: 0.6rem;
+    }
+    
+    .plant-tag {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .plants-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .vegetable-header {
+        height: 200px;
+    }
+    
+    .vegetable-content {
+        padding: 1.5rem;
+    }
+}

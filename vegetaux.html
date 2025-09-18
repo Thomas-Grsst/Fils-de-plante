@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Végétaux - Fils de Plante</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/vegetaux.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+    <!-- En-tête -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Fils de Plante</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="vegetaux.html" class="active">Végétaux</a></li>
+                    <li><a href="potager.html">Potager</a></li>
+                    <li><a href="guides.html">Guides</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Bannière principale -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Explorer les Végétaux</h2>
+            <p>Découvrez notre base de données complète de plus de 14 000 espèces végétales classées par catégories.</p>
+        </div>
+    </section>
+
+    <!-- Contenu principal -->
+    <main class="container">
+        <h2 class="section-title">Catalogue des Végétaux</h2>
+        
+        <!-- Barre de recherche -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Rechercher un végétal (ex: Rose, Tomate, Chêne...)">
+            <button id="searchButton"><i class="fas fa-search"></i></button>
+        </div>
+        
+        <!-- Végétaux populaires -->
+        <div class="popular-plants">
+            <h3>Végétaux populaires:</h3>
+            <div class="popular-tags">
+                <span class="plant-tag" data-plant="Rose">Rose</span>
+                <span class="plant-tag" data-plant="Tomate">Tomate</span>
+                <span class="plant-tag" data-plant="Chêne">Chêne</span>
+                <span class="plant-tag" data-plant="Lavande">Lavande</span>
+                <span class="plant-tag" data-plant="Tulipe">Tulipe</span>
+                <span class="plant-tag" data-plant="Basilic">Basilic</span>
+            </div>
+        </div>
+        
+        <!-- Grille des végétaux -->
+        <div class="plants-grid" id="plantsContainer">
+            <div class="welcome-message">
+                <i class="fas fa-seedling"></i>
+                <h3>Recherchez un végétal pour commencer</h3>
+                <p>Utilisez la barre de recherche ci-dessus ou cliquez sur un des végétaux populaires</p>
+            </div>
+        </div>
+        
+        <!-- Détails de la plante (modal) -->
+        <div id="plantDetails" class="plant-details-modal hidden">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div id="plantDetailsContent"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pied de page -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Fils de Plante</h3>
+                <p>Votre guide complet pour explorer et cultiver le monde végétal.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Liens Rapides</h3>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="vegetaux.html">Catalogue des végétaux</a></li>
+                    <li><a href="guides.html">Guides de jardinage</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> contact@filsdeplante.fr</p>
+                <p><i class="fas fa-phone"></i> +33 1 23 45 67 89</p>
+                <p><i class="fas fa-map-marker-alt"></i> Lyon, France</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Fils de Plante - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-button" id="chatbotButton">
+            <i class="fas fa-comments"></i>
+        </div>
+        
+        <div class="chatbot-window hidden" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>Assistant Jardinage</h3>
+                <button class="chatbot-close">&times;</button>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    <p>Bonjour ! Je suis votre assistant jardinage. Comment puis-je vous aider aujourd'hui ?</p>
+                </div>
+            </div>
+            
+            <div class="chatbot-options" id="chatbotOptions">
+                <div class="option-category">
+                    <h4>Choisissez une plante :</h4>
+                    <div class="options-grid" id="plantOptions">
+                        <!-- Les options de plantes seront générées par JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="option-category hidden" id="topicCategory">
+                    <h4>Choisissez un sujet :</h4>
+                    <div class="options-grid" id="topicOptions">
+                        <!-- Les options de sujets seront générées par JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/vegetaux.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+</html>

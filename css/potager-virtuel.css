@@ -1,0 +1,401 @@
+/* Styles spécifiques à la page Potager Virtuel */
+
+.virtual-garden-container {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+/* Section de sélection des plantes */
+.plant-selection {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    position: sticky;
+    top: 1rem;
+}
+
+.search-container {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+#searchPlantVirtual {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 30px 0 0 30px;
+    font-size: 1rem;
+    border-right: none;
+}
+
+#searchButtonVirtual {
+    padding: 0.8rem 1.2rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: 2px solid var(--primary-color);
+    border-radius: 0 30px 30px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#searchButtonVirtual:hover {
+    background-color: var(--dark-color);
+    border-color: var(--dark-color);
+}
+
+.plant-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.category-btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--light-color);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.category-btn:hover, .category-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.plants-library {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.plant-item {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    cursor: grab;
+    transition: all 0.3s;
+    border: 1px solid #eee;
+}
+
+.plant-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--light-color);
+}
+
+.plant-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 1rem;
+}
+
+.plant-item-info {
+    flex: 1;
+}
+
+.plant-item-info h4 {
+    margin: 0 0 0.3rem 0;
+    color: var(--dark-color);
+}
+
+.plant-item-info p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.add-plant-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.add-plant-btn:hover {
+    background-color: var(--dark-color);
+}
+
+/* Section de configuration du potager */
+.garden-configuration {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.garden-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--light-color);
+}
+
+.garden-header h2 {
+    margin: 0;
+    color: var(--dark-color);
+}
+
+.garden-stats {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+.stat i {
+    color: var(--primary-color);
+}
+
+.garden-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary, .btn-secondary, .btn-success {
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-color);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #e1e1e1;
+}
+
+.btn-success {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #f57c00;
+    transform: translateY(-2px);
+}
+
+.garden-visualization {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 1.5rem;
+    min-height: 400px;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: auto;
+}
+
+.garden-grid {
+    min-height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-garden {
+    text-align: center;
+    color: #999;
+}
+
+.empty-garden i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #ccc;
+}
+
+.garden-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* Grille du potager virtuel */
+.garden-grid-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 5px;
+    width: 100%;
+    height: 400px;
+    background-color: #e8f5e8;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.garden-plot {
+    background-color: #c5e1a5;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.garden-plot:hover {
+    background-color: #aed581;
+}
+
+.garden-plot.occupied {
+    background-color: #81c784;
+}
+
+.plant-in-garden {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50%;
+    font-size: 1.5rem;
+}
+
+/* Section des conseils */
+.advice-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+}
+
+.advice-container {
+    background-color: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.empty-advice {
+    text-align: center;
+    color: #999;
+    padding: 2rem;
+}
+
+.empty-advice i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #ccc;
+}
+
+.advice-item {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--light-color);
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.advice-item h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--dark-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.advice-item p {
+    margin: 0;
+    color: #555;
+}
+
+.advice-warning {
+    border-left-color: var(--accent-color);
+    background-color: #fff9e6;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .virtual-garden-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .plant-selection {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .garden-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .garden-controls, .garden-actions {
+        flex-direction: column;
+    }
+    
+    .garden-stats {
+        flex-wrap: wrap;
+    }
+}
+
+/* Animation pour le drag and drop */
+.dragging {
+    opacity: 0.5;
+}
+
+/* Style pour les plantes dans le potager */
+.plant-in-garden-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    display: none;
+    z-index: 10;
+}
+
+.garden-plot:hover .plant-in-garden-tooltip {
+    display: block;
+}

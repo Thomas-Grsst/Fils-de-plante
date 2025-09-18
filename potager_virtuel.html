@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potager Virtuel - Fils de Plante</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/potager-virtuel.css">
+</head>
+<body>
+    <!-- En-tête -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Fils de Plante</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="vegetaux.html">Végétaux</a></li>
+                    <li><a href="potager.html">Potager</a></li>
+                    <li><a href="potager-virtuel.html" class="active">Potager Virtuel</a></li>
+                    <li><a href="guides.html">Guides</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Bannière principale -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Mon Potager Virtuel</h2>
+            <p>Créez et visualisez votre potager idéal. Planifiez l'agencement, calculez l'espace nécessaire et obtenez des conseils personnalisés.</p>
+        </div>
+    </section>
+
+    <!-- Contenu principal -->
+    <main class="container">
+        <div class="virtual-garden-container">
+            <!-- Section de sélection des plantes -->
+            <div class="plant-selection">
+                <h2 class="section-title">Sélectionnez vos plantes</h2>
+                
+                <div class="search-container">
+                    <input type="text" id="searchPlantVirtual" placeholder="Rechercher une plante...">
+                    <button id="searchButtonVirtual"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="plant-categories">
+                    <button class="category-btn active" data-category="all">Toutes</button>
+                    <button class="category-btn" data-category="legume">Légumes</button>
+                    <button class="category-btn" data-category="fruit">Fruits</button>
+                    <button class="category-btn" data-category="aromatique">Aromatiques</button>
+                </div>
+                
+                <div class="plants-library" id="plantsLibrary">
+                    <!-- Les plantes seront chargées dynamiquement -->
+                </div>
+            </div>
+            
+            <!-- Section de configuration et visualisation -->
+            <div class="garden-configuration">
+                <div class="garden-header">
+                    <h2>Mon Potager</h2>
+                    <div class="garden-stats">
+                        <div class="stat">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>Surface: <span id="totalSurface">0</span> m²</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-seedling"></i>
+                            <span>Plantes: <span id="totalPlants">0</span></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="garden-controls">
+                    <button id="clearGarden" class="btn-secondary">
+                        <i class="fas fa-trash"></i> Vider le potager
+                    </button>
+                    <button id="autoArrange" class="btn-primary">
+                        <i class="fas fa-magic"></i> Arrangement automatique
+                    </button>
+                </div>
+                
+                <div class="garden-visualization">
+                    <div class="garden-grid" id="gardenGrid">
+                        <!-- Le potager virtuel sera généré ici -->
+                        <div class="empty-garden">
+                            <i class="fas fa-seedling"></i>
+                            <p>Ajoutez des plantes pour commencer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="garden-actions">
+                    <button id="saveGarden" class="btn-success">
+                        <i class="fas fa-save"></i> Sauvegarder mon potager
+                    </button>
+                    <button id="printGarden" class="btn-secondary">
+                        <i class="fas fa-print"></i> Imprimer le plan
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section des conseils -->
+        <section class="advice-section">
+            <h2 class="section-title">Conseils pour votre potager</h2>
+            <div class="advice-container" id="adviceContainer">
+                <div class="empty-advice">
+                    <i class="fas fa-lightbulb"></i>
+                    <p>Les conseils apparaîtront ici lorsque vous ajouterez des plantes</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pied de page -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Fils de Plante</h3>
+                <p>Votre guide complet pour explorer et cultiver le monde végétal.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Liens Rapides</h3>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="vegetaux.html">Catalogue des végétaux</a></li>
+                    <li><a href="potager.html">Mon potager</a></li>
+                    <li><a href="potager-virtuel.html">Potager virtuel</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> contact@filsdeplante.fr</p>
+                <p><i class="fas fa-phone"></i> +33 1 23 45 67 89</p>
+                <p><i class="fas fa-map-marker-alt"></i> Paris, France</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Fils de Plante - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/potager-virtuel.js"></script>
+</body>
+</html>
