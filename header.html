@@ -1,31 +1,31 @@
-    <header>
-      <div class="header-content">
-        <div class="logo">
-          <i class="fas fa-leaf"></i>
-          <h1>Fils de Plante</h1>
-        </div>
-        <nav>
-          <ul>
-            <li><a href="index.html" class="active">Accueil</a></li>
-            <li><a href="vegetaux.html">Végétaux</a></li>
-            <li><a href="potager.html">Potager</a></li>
-            <li><a href="guides.html">Guides</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+<header>
+  <div class="header-content">
+    <div class="logo">
+      <i class="fas fa-leaf"></i>
+      <h1>Fils de Plante</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="vegetaux.html">Végétaux</a></li>
+        <li><a href="potager.html">Potager</a></li>
+        <li><a href="guides.html">Guides</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-    <script>
-  // Récupère le chemin de la page actuelle
-      const currentPage = window.location.pathname.split("/").pop();
+<script>
+  // Récupère juste le nom du fichier (ex: "guides.html")
+  const currentPage = window.location.pathname.split("/").pop();
 
-      // Sélectionne tous les liens du menu
-      const menuLinks = document.querySelectorAll("nav ul li a");
+  // Sélectionne tous les liens du menu
+  const menuLinks = document.querySelectorAll("nav ul li a");
 
-      menuLinks.forEach(link => {
-        if(link.getAttribute("href") === currentPage) {
-          link.classList.add("active");
-        }
-      });
-  </script>
+  menuLinks.forEach(link => {
+    if (link.getAttribute("href") === currentPage) {
+      link.classList.add("active");
+    }
+  });
+</script>
