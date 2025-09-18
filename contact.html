@@ -11,23 +11,15 @@
 </head>
 <body>
     <!-- En-tête -->
-    <header>
-        <div class="header-content">
-            <div class="logo">
-                <i class="fas fa-leaf"></i>
-                <h1>Fils de Plante</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html"  onclick="window.location.href='index.html'; return false;">Accueil</a></li>
-                    <li><a href="vegetaux.html">Végétaux</a></li>
-                    <li><a href="potager.html">Potager</a></li>
-                    <li><a href="guides.html">Guides</a></li>
-                    <li><a href="contact.html" class="active">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div id="header"></div>
+
+    <script>
+      fetch("header.html")
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+        });
+    </script>
 
     <!-- Bannière principale -->
     <section class="hero">

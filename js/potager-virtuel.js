@@ -1,371 +1,474 @@
-// Données pour le potager virtuel
-const virtualGardenPlants = [
-    // Légumes-feuilles
-    { id: 1, name: "Laitue", type: "legume", space: 0.09, color: "#77dd77", icon: "🥬", companions: ["Carotte", "Radis", "Fraises"], enemies: ["Chou"] },
-    { id: 2, name: "Épinard", type: "legume", space: 0.09, color: "#2e8b57", icon: "🥬", companions: ["Chou", "Fraises", "Haricot"], enemies: [] },
-    
-    // Légumes-racines
-    { id: 3, name: "Carotte", type: "legume", space: 0.04, color: "#ff8c00", icon: "🥕", companions: ["Laitue", "Oignon", "Poireau"], enemies: ["Aneth"] },
-    { id: 4, name: "Radis", type: "legume", space: 0.02, color: "#ff6b6b", icon: "🌶️", companions: ["Laitue", "Carotte", "Concombre"], enemies: [] },
-    
-    // Légumineuses
-    { id: 5, name: "Haricot", type: "legume", space: 0.09, color: "#f0e68c", icon: "🫘", companions: ["Maïs", "Courgette", "Chou"], enemies: ["Oignon", "Ail"] },
-    
-    // Légumes-fruits
-    { id: 6, name: "Tomate", type: "fruit", space: 0.36, color: "#ff4500", icon: "🍅", companions: ["Basilic", "Carotte", "Oignon"], enemies: ["Pomme de terre", "Chou"] },
-    { id: 7, name: "Courgette", type: "legume", space: 0.49, color: "#90ee90", icon: "🥒", companions: ["Maïs", "Haricot", "Radis"], enemies: [] },
-    { id: 8, name: "Concombre", type: "legume", space: 0.25, color: "#7cfc00", icon: "🥒", companions: ["Haricot", "Maïs", "Radis"], enemies: ["Pomme de terre"] },
-    
-    // Bulbes
-    { id: 9, name: "Oignon", type: "legume", space: 0.04, color: "#fff8dc", icon: "🧅", companions: ["Carotte", "Laitue", "Tomate"], enemies: ["Haricot", "Pois"] },
-    
-    // Aromatiques
-    { id: 10, name: "Basilic", type: "aromatique", space: 0.04, color: "#98fb98", icon: "🌿", companions: ["Tomate", "Poivron", "Aubergine"], enemies: [] },
-    { id: 11, name: "Persil", type: "aromatique", space: 0.04, color: "#228b22", icon: "🌿", companions: ["Tomate", "Asperge", "Maïs"], enemies: [] },
-    
-    // Fruits
-    { id: 12, name: "Fraises", type: "fruit", space: 0.09, color: "#ff6b6b", icon: "🍓", companions: ["Laitue", "Épinard", "Thym"], enemies: ["Chou"] },
-];
-
-// État du potager
-let gardenState = {
-    plants: [],
-    totalSurface: 0,
-    layout: Array(80).fill(null) // 10x8 grid
+// Données pour le planificateur
+const companionPlants = {
+    "Tomate": ["Basilic", "Carotte", "Oignon", "Persil", "Souci"],
+    "Carotte": ["Tomate", "Poireau", "Oignon", "Romarin", "Sauge"],
+    "Chou": ["Betterave", "Céleri", "Camomille", "Menthe", "Romarin"],
+    "Concombre": ["Haricot", "Pois", "Radis", "Tournesol", "Maïs"],
+    "Courgette": ["Haricot", "Maïs", "Radis", "Capucine"],
+    "Fraise": ["Haricot", "Laitue", "Oignon", "Épinard", "Thym"],
+    "Haricot": ["Betterave", "Carotte", "Chou", "Concombre", "Maïs"],
+    "Laitue": ["Betterave", "Carotte", "Concombre", "Oignon", "Radis"],
+    "Oignon": ["Carotte", "Laitue", "Tomate", "Chou", "Fraise"],
+    "Poivron": ["Basilic", "Carotte", "Oignon", "Origan", "Tomate"],
+    "Radis": ["Concombre", "Laitue", "Petit pois", "Courge", "Haricot"]
 };
 
-// Éléments DOM
-const plantsLibrary = document.getElementById('plantsLibrary');
-const gardenGrid = document.getElementById('gardenGrid');
-const totalSurfaceEl = document.getElementById('totalSurface');
-const totalPlantsEl = document.getElementById('totalPlants');
-const adviceContainer = document.getElementById('adviceContainer');
-const clearGardenBtn = document.getElementById('clearGarden');
-const autoArrangeBtn = document.getElementById('autoArrange');
-const saveGardenBtn = document.getElementById('saveGarden');
-const printGardenBtn = document.getElementById('printGarden');
+const plantColors = {
+    "Tomate": "#f44336",
+    "Carotte": "#ff9800",
+    "Chou": "#4caf50",
+    "Concombre": "#8bc34a",
+    "Courgette": "#cddc39",
+    "Fraise": "#e91e63",
+    "Haricot": "#795548",
+    "Laitue": "#9ccc65",
+    "Oignon": "#9e9e9e",
+    "Poivron": "#ff5722",
+    "Radis": "#ff5252",
+    "Basilic": "#00796b",
+    "Persil": "#388e3c"
+};
 
-// Initialisation
-document.addEventListener('DOMContentLoaded', function() {
-    loadPlantsLibrary();
-    renderGarden();
+// Variables globales
+let selectedPlant = null;
+let gardenGrid = [];
+let currentPlan = {};
+
+// Initialisation du planificateur
+function initPlanner() {
+    generateGardenGrid(3, 4, 60);
+    populatePlantsList();
     setupEventListeners();
-});
-
-// Charger la bibliothèque de plantes
-function loadPlantsLibrary() {
-    plantsLibrary.innerHTML = '';
-    
-    virtualGardenPlants.forEach(plant => {
-        const plantEl = document.createElement('div');
-        plantEl.className = 'plant-item';
-        plantEl.draggable = true;
-        plantEl.dataset.id = plant.id;
-        plantEl.innerHTML = `
-            <img src="https://images.unsplash.com/photo-1596627117031-6f197f38db4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="${plant.name}">
-            <div class="plant-item-info">
-                <h4>${plant.name}</h4>
-                <p>Espace: ${plant.space}m² • ${plant.icon}</p>
-            </div>
-            <button class="add-plant-btn" onclick="addPlantToGarden(${plant.id})">
-                <i class="fas fa-plus"></i>
-            </button>
-        `;
-        
-        // Drag and drop
-        plantEl.addEventListener('dragstart', handleDragStart);
-        
-        plantsLibrary.appendChild(plantEl);
-    });
 }
 
-// Gestion du drag and drop
+// Génération de la grille du potager
+function generateGardenGrid(width, height, cellSize) {
+    const gridContainer = document.getElementById('gardenGrid');
+    gridContainer.innerHTML = '';
+    gridContainer.style.gridTemplateColumns = `repeat(${width}, ${cellSize}px)`;
+    gridContainer.style.gridTemplateRows = `repeat(${height}, ${cellSize}px)`;
+    
+    gardenGrid = Array(height).fill().map(() => Array(width).fill(null));
+    
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const cell = document.createElement('div');
+            cell.className = 'grid-cell';
+            cell.dataset.x = x;
+            cell.dataset.y = y;
+            cell.addEventListener('click', () => handleCellClick(x, y));
+            cell.addEventListener('dragover', handleDragOver);
+            cell.addEventListener('drop', handleDrop);
+            gridContainer.appendChild(cell);
+        }
+    }
+    
+    document.getElementById('gardenDimensions').textContent = `${width}m x ${height}m`;
+}
+
+// Peupler la liste des plantes
+function populatePlantsList() {
+    const plantsList = document.querySelector('.plants-list');
+    plantsList.innerHTML = '';
+    
+    const popularPlants = ["Tomate", "Carotte", "Laitue", "Radis", "Courgette", 
+                          "Concombre", "Poivron", "Chou", "Fraise", "Haricot", 
+                          "Oignon", "Basilic", "Persil"];
+    
+    popularPlants.forEach(plantName => {
+        const plant = ediblePlants.find(p => p.name === plantName);
+        if (plant) {
+            const plantOption = document.createElement('div');
+            plantOption.className = 'plant-option';
+            plantOption.draggable = true;
+            plantOption.dataset.plant = plant.name;
+            plantOption.innerHTML = `
+                <img src="${plant.image}" alt="${plant.name}">
+                <span>${plant.name}</span>
+            `;
+            
+            plantOption.addEventListener('dragstart', handleDragStart);
+            plantOption.addEventListener('click', () => {
+                selectedPlant = plant.name;
+                updateSelectedPlant();
+            });
+            
+            plantsList.appendChild(plantOption);
+        }
+    });
+    
+    updateLegend();
+}
+
+// Gestion des événements
+function setupEventListeners() {
+    document.getElementById('generateGarden').addEventListener('click', generateNewGrid);
+    document.getElementById('optimizeBtn').addEventListener('click', optimizeGarden);
+    document.getElementById('resetBtn').addEventListener('click', resetGarden);
+    document.getElementById('savePlanBtn').addEventListener('click', saveGardenPlan);
+}
+
+function generateNewGrid() {
+    const width = parseInt(document.getElementById('gardenWidth').value);
+    const height = parseInt(document.getElementById('gardenHeight').value);
+    const cellSize = parseInt(document.getElementById('cellSize').value);
+    
+    generateGardenGrid(width, height, cellSize);
+}
+
+// Gestion du glisser-déposer
 function handleDragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.dataset.id);
+    selectedPlant = e.target.dataset.plant;
+    e.dataTransfer.setData('text/plain', selectedPlant);
     e.target.classList.add('dragging');
 }
 
-function setupEventListeners() {
-    // Zone de dépôt
-    gardenGrid.addEventListener('dragover', e => {
-        e.preventDefault();
-    });
-    
-    gardenGrid.addEventListener('drop', e => {
-        e.preventDefault();
-        const plantId = e.dataTransfer.getData('text/plain');
-        addPlantToGarden(parseInt(plantId));
-        
-        // Retirer la classe dragging
-        document.querySelectorAll('.plant-item').forEach(item => {
-            item.classList.remove('dragging');
-        });
-    });
-    
-    // Boutons
-    clearGardenBtn.addEventListener('click', clearGarden);
-    autoArrangeBtn.addEventListener('click', autoArrangeGarden);
-    saveGardenBtn.addEventListener('click', saveGarden);
-    printGardenBtn.addEventListener('click', printGarden);
+function handleDragOver(e) {
+    e.preventDefault();
+    e.target.classList.add('drag-over');
 }
 
-// Ajouter une plante au potager
-function addPlantToGarden(plantId) {
-    const plant = virtualGardenPlants.find(p => p.id === plantId);
-    if (!plant) return;
+function handleDrop(e) {
+    e.preventDefault();
+    e.target.classList.remove('drag-over');
     
-    gardenState.plants.push({
-        ...plant,
-        position: findAvailablePosition(plant.space)
-    });
+    const plantName = e.dataTransfer.getData('text/plain');
+    const x = parseInt(e.target.dataset.x);
+    const y = parseInt(e.target.dataset.y);
     
-    gardenState.totalSurface += plant.space;
-    gardenState.totalPlants = gardenState.plants.length;
-    
-    updateGardenStats();
-    renderGarden();
-    generateAdvice();
-}
-
-// Trouver une position disponible
-function findAvailablePosition(space) {
-    // Simplifié pour cet exemple - dans une vraie implémentation,
-    // on calculerait la position optimale en fonction de l'espace nécessaire
-    const gridSize = 80; // 10x8 grid
-    const occupiedPositions = gardenState.plants.flatMap(p => p.position);
-    
-    for (let i = 0; i < gridSize; i++) {
-        if (!occupiedPositions.includes(i)) {
-            return i;
-        }
-    }
-    
-    return null; // Plus de place
-}
-
-// Mettre à jour les statistiques
-function updateGardenStats() {
-    totalSurfaceEl.textContent = gardenState.totalSurface.toFixed(2);
-    totalPlantsEl.textContent = gardenState.totalPlants;
-}
-
-// Rendu du potager
-function renderGarden() {
-    if (gardenState.plants.length === 0) {
-        gardenGrid.innerHTML = `
-            <div class="empty-garden">
-                <i class="fas fa-seedling"></i>
-                <p>Ajoutez des plantes pour commencer</p>
-            </div>
-        `;
-        return;
-    }
-    
-    gardenGrid.innerHTML = '';
-    gardenGrid.className = 'garden-grid-container';
-    
-    // Créer la grille 10x8
-    for (let i = 0; i < 80; i++) {
-        const plot = document.createElement('div');
-        plot.className = 'garden-plot';
-        plot.dataset.index = i;
-        
-        // Vérifier si cette case est occupée
-        const plantInPlot = gardenState.plants.find(p => p.position === i);
-        if (plantInPlot) {
-            plot.classList.add('occupied');
-            plot.innerHTML = `
-                <div class="plant-in-garden" style="background-color: ${plantInPlot.color}">
-                    ${plantInPlot.icon}
-                </div>
-                <div class="plant-in-garden-tooltip">${plantInPlot.name}</div>
-            `;
-            
-            // Double-clic pour retirer la plante
-            plot.addEventListener('dblclick', () => {
-                removePlantFromGarden(plantInPlot.id);
-            });
-        }
-        
-        gardenGrid.appendChild(plot);
+    if (x !== undefined && y !== undefined) {
+        placePlant(x, y, plantName);
     }
 }
 
-// Retirer une plante du potager
-function removePlantFromGarden(plantId) {
-    const plantIndex = gardenState.plants.findIndex(p => p.id === plantId);
-    if (plantIndex === -1) return;
-    
-    gardenState.totalSurface -= gardenState.plants[plantIndex].space;
-    gardenState.plants.splice(plantIndex, 1);
-    gardenState.totalPlants = gardenState.plants.length;
-    
-    updateGardenStats();
-    renderGarden();
-    generateAdvice();
-}
-
-// Vider le potager
-function clearGarden() {
-    if (confirm("Voulez-vous vraiment vider tout votre potager ?")) {
-        gardenState.plants = [];
-        gardenState.totalSurface = 0;
-        gardenState.totalPlants = 0;
-        
-        updateGardenStats();
-        renderGarden();
-        generateAdvice();
+function handleCellClick(x, y) {
+    if (selectedPlant) {
+        placePlant(x, y, selectedPlant);
+    } else if (gardenGrid[y][x]) {
+        removePlant(x, y);
     }
 }
 
-// Arrangement automatique
-function autoArrangeGarden() {
-    // Implémentation simplifiée - dans une vraie application,
-    // on utiliserait un algorithme pour optimiser l'agencement
-    alert("Fonctionnalité d'arrangement automatique en développement !");
-}
-
-// Générer des conseils
-function generateAdvice() {
-    if (gardenState.plants.length === 0) {
-        adviceContainer.innerHTML = `
-            <div class="empty-advice">
-                <i class="fas fa-lightbulb"></i>
-                <p>Les conseils apparaîtront ici lorsque vous ajouterez des plantes</p>
-            </div>
-        `;
-        return;
-    }
+// Placement des plantes
+function placePlant(x, y, plantName) {
+    gardenGrid[y][x] = plantName;
     
-    let adviceHTML = '';
+    const cell = document.querySelector(`.grid-cell[data-x="${x}"][data-y="${y}"]`);
+    const plant = ediblePlants.find(p => p.name === plantName);
     
-    // Conseils sur l'espace
-    const totalSpace = gardenState.totalSurface;
-    if (totalSpace > 10) {
-        adviceHTML += `
-            <div class="advice-item advice-warning">
-                <h4><i class="fas fa-exclamation-triangle"></i> Potager spacieux</h4>
-                <p>Votre potager fait ${totalSpace.toFixed(2)} m². Pensez à prévoir assez de temps pour l'entretien !</p>
-            </div>
-        `;
-    }
-    
-    // Conseils de compagnonnage
-    gardenState.plants.forEach(plant => {
-        plant.companions.forEach(companion => {
-            const hasCompanion = gardenState.plants.some(p => p.name === companion);
-            if (!hasCompanion) {
-                adviceHTML += `
-                    <div class="advice-item">
-                        <h4><i class="fas fa-handshake"></i> Compagnonnage recommandé</h4>
-                        <p>Le ${plant.name} pousse mieux à côté des ${companion}. Pensez à en ajouter !</p>
-                    </div>
-                `;
-            }
-        });
-        
-        plant.enemies.forEach(enemy => {
-            const hasEnemy = gardenState.plants.some(p => p.name === enemy);
-            if (hasEnemy) {
-                adviceHTML += `
-                    <div class="advice-item advice-warning">
-                        <h4><i class="fas fa-times-circle"></i> Mauvais voisinage</h4>
-                        <p>Le ${plant.name} ne devrait pas être planté à côté des ${enemy}.</p>
-                    </div>
-                `;
-            }
-        });
-    });
-    
-    // Conseil d'arrosage
-    const hasTomatoes = gardenState.plants.some(p => p.name === "Tomate");
-    const hasLettuce = gardenState.plants.some(p => p.name === "Laitue");
-    
-    if (hasTomatoes && hasLettuce) {
-        adviceHTML += `
-            <div class="advice-item">
-                <h4><i class="fas fa-tint"></i> Besoins en eau différents</h4>
-                <p>Les tomates et les laitues ont des besoins en eau différents. Pensez à les arroser séparément.</p>
-            </div>
-        `;
-    }
-    
-    adviceContainer.innerHTML = adviceHTML || `
-        <div class="advice-item">
-            <h4><i class="fas fa-thumbs-up"></i> Bon départ !</h4>
-            <p>Votre sélection de plantes semble bien s'associer. Continuez à construire votre potager idéal !</p>
-        </div>
+    cell.innerHTML = `
+        <img src="${plant.image}" alt="${plantName}" class="plant-in-cell">
+        <div class="cell-info">${plantName}</div>
     `;
+    cell.classList.add('occupied');
+    cell.style.backgroundColor = plantColors[plantName] || '#e8f5e8';
+    
+    updateAdvice();
 }
 
-// Sauvegarder le potager
-function saveGarden() {
-    const gardenData = JSON.stringify(gardenState);
-    localStorage.setItem('myVirtualGarden', gardenData);
-    alert("Votre potager a été sauvegardé avec succès !");
+function removePlant(x, y) {
+    gardenGrid[y][x] = null;
+    
+    const cell = document.querySelector(`.grid-cell[data-x="${x}"][data-y="${y}"]`);
+    cell.innerHTML = '';
+    cell.classList.remove('occupied');
+    cell.style.backgroundColor = 'white';
+    
+    updateAdvice();
 }
 
-// Charger un potager sauvegardé
-function loadGarden() {
-    const savedGarden = localStorage.getItem('myVirtualGarden');
-    if (savedGarden) {
-        gardenState = JSON.parse(savedGarden);
-        updateGardenStats();
-        renderGarden();
-        generateAdvice();
+// Mise à jour de l'interface
+function updateSelectedPlant() {
+    document.querySelectorAll('.plant-option').forEach(option => {
+        option.style.borderColor = option.dataset.plant === selectedPlant ? 
+            (plantColors[selectedPlant] || '#2196f3') : 'transparent';
+    });
+}
+
+function updateLegend() {
+    const legendContainer = document.querySelector('.legend-items');
+    legendContainer.innerHTML = '';
+    
+    Object.entries(plantColors).forEach(([plant, color]) => {
+        const legendItem = document.createElement('div');
+        legendItem.className = 'legend-item';
+        legendItem.innerHTML = `
+            <div class="legend-color" style="background-color: ${color}"></div>
+            <span>${plant}</span>
+        `;
+        legendContainer.appendChild(legendItem);
+    });
+}
+
+// Fonctions d'optimisation
+function optimizeGarden() {
+    // Algorithme simple d'optimisation basé sur le compagnonnage
+    const optimizedGrid = JSON.parse(JSON.stringify(gardenGrid));
+    
+    for (let y = 0; y < gardenGrid.length; y++) {
+        for (let x = 0; x < gardenGrid[y].length; x++) {
+            if (!gardenGrid[y][x]) {
+                const bestPlant = findBestPlantForPosition(x, y);
+                if (bestPlant) {
+                    placePlant(x, y, bestPlant);
+                }
+            }
+        }
+    }
+    
+    showNotification('Potager optimisé avec succès!', 'success');
+}
+
+function findBestPlantForPosition(x, y) {
+    const neighbors = getNeighbors(x, y);
+    const plantScores = {};
+    
+    // Calculer un score pour chaque plante basé sur les voisins
+    Object.keys(plantColors).forEach(plant => {
+        let score = 0;
+        neighbors.forEach(neighbor => {
+            if (neighbor && companionPlants[plant] && companionPlants[plant].includes(neighbor)) {
+                score += 2; // Bon compagnon
+            } else if (neighbor && plant === neighbor) {
+                score -= 1; // Éviter les monocultures
+            }
+        });
+        plantScores[plant] = score;
+    });
+    
+    // Retourner la plante avec le meilleur score
+    return Object.keys(plantScores).reduce((best, current) => {
+        return plantScores[current] > plantScores[best] ? current : best;
+    }, Object.keys(plantScores)[0]);
+}
+
+function getNeighbors(x, y) {
+    const neighbors = [];
+    const directions = [
+        [-1, -1], [0, -1], [1, -1],
+        [-1, 0],           [1, 0],
+        [-1, 1],  [0, 1],  [1, 1]
+    ];
+    
+    directions.forEach(([dx, dy]) => {
+        const nx = x + dx;
+        const ny = y + dy;
+        
+        if (nx >= 0 && nx < gardenGrid[0].length && ny >= 0 && ny < gardenGrid.length) {
+            if (gardenGrid[ny][nx]) {
+                neighbors.push(gardenGrid[ny][nx]);
+            }
+        }
+    });
+    
+    return neighbors;
+}
+
+// Mise à jour des conseils
+function updateAdvice() {
+    updateCompanionAdvice();
+    updateRotationAdvice();
+    updateSeasonAdvice();
+}
+
+function updateCompanionAdvice() {
+    const companionInfo = document.getElementById('companionInfo');
+    companionInfo.innerHTML = '';
+    
+    const allPlants = getAllPlantedPlants();
+    
+    allPlants.forEach(plant => {
+        const goodCompanions = companionPlants[plant] || [];
+        const badCompanions = findBadCompanions(plant, allPlants);
+        
+        if (goodCompanions.length > 0 || badCompanions.length > 0) {
+            const adviceItem = document.createElement('div');
+            adviceItem.className = 'advice-item';
+            
+            let html = `<strong>${plant}:</strong>`;
+            
+            if (goodCompanions.length > 0) {
+                html += `<br>✅ Se marie bien avec: ${goodCompanions.join(', ')}`;
+            }
+            
+            if (badCompanions.length > 0) {
+                html += `<br>❌ Éviter à proximité: ${badCompanions.join(', ')}`;
+            }
+            
+            adviceItem.innerHTML = html;
+            companionInfo.appendChild(adviceItem);
+        }
+    });
+}
+
+function findBadCompanions(plant, allPlants) {
+    // Logique simplifiée pour les mauvais compagnons
+    const badCompanions = {
+        'Tomate': ['Pomme de terre', 'Fenouil'],
+        'Chou': ['Tomate', 'Fraise'],
+        'Carotte': ['Aneth'],
+        'Oignon': ['Haricot', 'Pois'],
+        'Haricot': ['Oignon', 'Ail', 'Poireau']
+    };
+    
+    return (badCompanions[plant] || []).filter(p => allPlants.includes(p));
+}
+
+function updateRotationAdvice() {
+    const rotationInfo = document.getElementById('rotationInfo');
+    rotationInfo.innerHTML = '';
+    
+    const plantFamilies = groupPlantsByFamily();
+    
+    Object.entries(plantFamilies).forEach(([family, plants]) => {
+        if (plants.length > 1) {
+            const adviceItem = document.createElement('div');
+            adviceItem.className = 'advice-item warning';
+            adviceItem.innerHTML = `
+                <strong>Rotation conseillée:</strong><br>
+                Évitez de planter plusieurs ${family} (${plants.join(', ')}) au même endroit l'année prochaine.
+            `;
+            rotationInfo.appendChild(adviceItem);
+        }
+    });
+}
+
+function groupPlantsByFamily() {
+    const families = {
+        'Solanacées': ['Tomate', 'Poivron', 'Aubergine', 'Pomme de terre'],
+        'Apiacées': ['Carotte', 'Céleri', 'Panais', 'Persil'],
+        'Brassicacées': ['Chou', 'Radis', 'Navet', 'Roquette'],
+        'Cucurbitacées': ['Courgette', 'Concombre', 'Courge', 'Melon'],
+        'Fabacées': ['Haricot', 'Pois', 'Fève', 'Lentille'],
+        'Liliacées': ['Oignon', 'Ail', 'Échalote', 'Poireau']
+    };
+    
+    const result = {};
+    const allPlants = getAllPlantedPlants();
+    
+    allPlants.forEach(plant => {
+        for (const [family, members] of Object.entries(families)) {
+            if (members.includes(plant)) {
+                if (!result[family]) result[family] = [];
+                result[family].push(plant);
+                break;
+            }
+        }
+    });
+    
+    return result;
+}
+
+function updateSeasonAdvice() {
+    const seasonInfo = document.getElementById('seasonInfo');
+    seasonInfo.innerHTML = '';
+    
+    const currentMonth = new Date().getMonth();
+    const season = getCurrentSeason(currentMonth);
+    
+    const adviceItem = document.createElement('div');
+    adviceItem.className = 'advice-item';
+    adviceItem.innerHTML = `
+        <strong>Saison actuelle: ${season}</strong><br>
+        C'est le moment idéal pour planter: ${getRecommendedPlants(season).join(', ')}
+    `;
+    seasonInfo.appendChild(adviceItem);
+}
+
+function getCurrentSeason(month) {
+    const seasons = {
+        'printemps': [2, 3, 4],
+        'ete': [5, 6, 7],
+        'automne': [8, 9, 10],
+        'hiver': [11, 0, 1]
+    };
+    
+    return Object.entries(seasons).find(([_, months]) => 
+        months.includes(month)
+    )[0];
+}
+
+function getRecommendedPlants(season) {
+    const recommendations = {
+        'printemps': ['Laitue', 'Radis', 'Carotte', 'Epinard', 'Petit pois'],
+        'ete': ['Tomate', 'Courgette', 'Concombre', 'Poivron', 'Haricot'],
+        'automne': ['Chou', 'Brocoli', 'Navet', 'Poireau', 'Mâche'],
+        'hiver': ['Ail', 'Oignon', 'Échalote', 'Fève', 'Poireau']
+    };
+    
+    return recommendations[season] || [];
+}
+
+// Utilitaires
+function getAllPlantedPlants() {
+    const plants = [];
+    gardenGrid.forEach(row => {
+        row.forEach(cell => {
+            if (cell && !plants.includes(cell)) {
+                plants.push(cell);
+            }
+        });
+    });
+    return plants;
+}
+
+function resetGarden() {
+    if (confirm('Êtes-vous sûr de vouloir réinitialiser votre potager ?')) {
+        generateGardenGrid(
+            parseInt(document.getElementById('gardenWidth').value),
+            parseInt(document.getElementById('gardenHeight').value),
+            parseInt(document.getElementById('cellSize').value)
+        );
+        showNotification('Potager réinitialisé', 'info');
     }
 }
 
-// Imprimer le plan
-function printGarden() {
-    alert("Fonctionnalité d'impression en développement !");
-}
-
-// Filtrer les plantes
-function filterPlants(category) {
-    const plantItems = document.querySelectorAll('.plant-item');
-    
-    plantItems.forEach(item => {
-        const plantId = parseInt(item.dataset.id);
-        const plant = virtualGardenPlants.find(p => p.id === plantId);
+function saveGardenPlan() {
+    const planName = prompt('Donnez un nom à votre plan de potager:');
+    if (planName) {
+        currentPlan = {
+            name: planName,
+            grid: gardenGrid,
+            dimensions: {
+                width: gardenGrid[0].length,
+                height: gardenGrid.length
+            },
+            createdAt: new Date().toISOString()
+        };
         
-        if (category === 'all' || plant.type === category) {
-            item.style.display = 'flex';
-        } else {
-            item.style.display = 'none';
-        }
-    });
+        // Sauvegarde simplifiée (dans un cas réel, on utiliserait localStorage ou une API)
+        localStorage.setItem('gardenPlan', JSON.stringify(currentPlan));
+        showNotification('Plan sauvegardé avec succès!', 'success');
+    }
 }
 
-// Initialiser les filtres
-document.querySelectorAll('.category-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        filterPlants(btn.dataset.category);
-    });
-});
-
-// Recherche de plantes
-document.getElementById('searchButtonVirtual').addEventListener('click', searchPlants);
-document.getElementById('searchPlantVirtual').addEventListener('input', searchPlants);
-document.getElementById('searchPlantVirtual').addEventListener('keypress', e => {
-    if (e.key === 'Enter') searchPlants();
-});
-
-function searchPlants() {
-    const searchTerm = document.getElementById('searchPlantVirtual').value.toLowerCase();
-    const plantItems = document.querySelectorAll('.plant-item');
+function showNotification(message, type) {
+    // Implémentation simple d'une notification
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        color: white;
+        font-weight: 500;
+        z-index: 10000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    `;
     
-    plantItems.forEach(item => {
-        const plantName = item.querySelector('h4').textContent.toLowerCase();
-        if (plantName.includes(searchTerm)) {
-            item.style.display = 'flex';
-        } else {
-            item.style.display = 'none';
-        }
-    });
+    notification.style.backgroundColor = type === 'success' ? '#4caf50' : 
+                                       type === 'error' ? '#f44336' : '#2196f3';
+    
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 }
 
-// Charger le potager sauvegardé au chargement de la page
-window.addEventListener('load', loadGarden);
+// Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    initPlanner();
+});

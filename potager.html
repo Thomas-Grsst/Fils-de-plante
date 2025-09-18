@@ -11,26 +11,18 @@
 </head>
 <body>
     <!-- En-tête -->
-    <header>
-        <div class="header-content">
-            <div class="logo">
-                <i class="fas fa-leaf"></i>
-                <h1>Fils de Plante</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Accueil</a></li>
-                    <li><a href="vegetaux.html">Végétaux</a></li>
-                    <li><a href="potager.html" class="active">Potager</a></li>
-                    <li><a href="guides.html">Guides</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div id="header"></div>
+
+    <script>
+      fetch("header.html")
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+        });
+    </script>
 
     <!-- Bannière principale -->
-    <section class="hero">
+    <section class="hero" style="background-image: url('https://images.pexels.com/photos/7658822/pexels-photo-7658822.jpeg');">
         <div class="hero-content">
             <h2>Mon Potager</h2>
             <p>Apprenez à cultiver vos propres fruits et légumes avec nos guides détaillés et conseils pratiques.</p>
